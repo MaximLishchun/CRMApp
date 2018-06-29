@@ -55,19 +55,13 @@ public class MainActivity extends AppCompatActivity implements OnSmsDataTransmis
             dateSms.setText(date);
             senderSms.setText(sender);
         }
-        new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(v.getId() == R.id.saveSms){
-                    new Thread(new Runnable() {
-                        public void run() {
-                            saveSms(sender, date, message);
-                        }
-                    }).start();
-                    Toast.makeText(getApplicationContext(), "Save in DB!", Toast.LENGTH_LONG).show();
-                }
-            }
-        };
+//        new Thread(new Runnable() {
+//            public void run() {
+//                saveSms(sender, date, message);
+//            }
+//        }).start();
+//        Toast.makeText(getApplicationContext(), "Save in DB!", Toast.LENGTH_LONG).show();
+
     }
 
     private void saveSms(String sender, String date, String message){

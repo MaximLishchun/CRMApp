@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CRMApp</string>
+    <string name="device_admin_label">device_admin_label</string>
+    <string name="device_description">device_description</string>
 </resources>
