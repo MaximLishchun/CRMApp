@@ -9,10 +9,19 @@
     <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.DELETE_CACHE_FILES"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -24,7 +33,6 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,24 +46,35 @@
         </receiver>
         <service android:name=".SMS.OutgoingSMSReceiver" ></service>
 
-        <receiver
-            android:name="com.bignerdranch.android.crmapp.PhoneCall.DeviceAdminDemo"
-            android:description="@string/device_description"
-            android:label="@string/device_admin_label"
-            android:permission="android.permission.BIND_DEVICE_ADMIN" >
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/my_admin" />
-
-
-            <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
-                <action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />
-                <action android:name="android.app.action.DEVICE_ADMIN_DISABLE_REQUESTED" />
+        <receiver android:name=".PhoneCall.CallBr"
+            android:enabled="true" >
+            <intent-filter  android:priority="214748364">
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL"/>
+                <action android:name="android.intent.action.PHONE_STATE"/>
+            <!--<action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />-->
+            <!--<action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />-->
+            <!--<action android:name="android.app.action.DEVICE_ADMIN_DISABLE_REQUESTED" />-->
             </intent-filter>
         </receiver>
 
-        <service android:name=".PhoneCall.TService" ></service>
+        <!--<receiver-->
+            <!--android:name="com.bignerdranch.android.crmapp.PhoneCall.DeviceAdminDemo"-->
+            <!--android:description="@string/device_description"-->
+            <!--android:label="@string/device_admin_label"-->
+            <!--android:permission="android.permission.BIND_DEVICE_ADMIN" >-->
+            <!--<meta-data-->
+                <!--android:name="android.app.device_admin"-->
+                <!--android:resource="@xml/my_admin" />-->
+
+
+            <!--<intent-filter>-->
+                <!--<action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />-->
+                <!--<action android:name="android.app.action.DEVICE_ADMIN_DISABLED" />-->
+                <!--<action android:name="android.app.action.DEVICE_ADMIN_DISABLE_REQUESTED" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
+        <!--<service android:name=".PhoneCall.TService" ></service>-->
     </application>
 
 </manifest>
