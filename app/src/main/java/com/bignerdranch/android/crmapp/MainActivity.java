@@ -28,7 +28,7 @@ import com.bignerdranch.android.crmapp.SMS.SmsReceiver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnSmsDataTransmission, OnPlayCall {
+public class MainActivity extends AppCompatActivity implements OnSmsDataTransmission{
 
     private SmsReceiver smsReceiver;
 
@@ -36,13 +36,9 @@ public class MainActivity extends AppCompatActivity implements OnSmsDataTransmis
     private SmsDao smsDao;
     private DBSmsObject dbSmsObject;
 
-    private MediaPlayer mediaPlayer;
-
     private TextView messageSms;
     private TextView dateSms;
     private TextView senderSms;
-    private Button play;
-    private Button stop;
 
     private static final int REQUEST_CODE = 0;
     private DevicePolicyManager mDPM;
@@ -65,14 +61,10 @@ public class MainActivity extends AppCompatActivity implements OnSmsDataTransmis
         dateSms = (TextView) findViewById(R.id.dateSms);
         senderSms = (TextView) findViewById(R.id.senderSms);
 
-        play = (Button) findViewById(R.id.play);
-        stop = (Button) findViewById(R.id.stop);
-
         smsReceiver = new SmsReceiver();
         smsReceiver.setOnSmsDataTransmission(this);
 
         callBr = new CallBr();
-        callBr.setOnPlayCall(this);
 
         startService(new Intent(this, OutgoingSMSReceiver.class));
 //        startService(new Intent(this, TService.class));
@@ -98,33 +90,6 @@ public class MainActivity extends AppCompatActivity implements OnSmsDataTransmis
 
         //pendingIntent = createPendingResult(RECORD_CODE, null, 0);
         //intentPI = new Intent(this, TService.class).putExtra(PARAM_PINTENT , pendingIntent);
-
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.getId() == R.id.play){
-                    try {
-                        if (mediaPlayer != null) {
-                            mediaPlayer.release();
-                            mediaPlayer = null;
-                        }
-                        mediaPlayer = new MediaPlayer();
-                        mediaPlayer.setDataSource("Record.amr");
-                        mediaPlayer.prepare();
-                        mediaPlayer.start();
-                    }catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (v.getId() == R.id.stop) {
-                    if (mediaPlayer != null) {
-                        mediaPlayer.stop();
-                    }
-                }
-            }
-        };
-        play.setOnClickListener(onClickListener);
-        stop.setOnClickListener(onClickListener);
     }
 
     @Override
@@ -158,15 +123,5 @@ public class MainActivity extends AppCompatActivity implements OnSmsDataTransmis
         dbSmsObject.date = date;
         dbSmsObject.message = message;
         smsDao.saveSms(dbSmsObject);
-    }
-
-    @Override
-    public void playCall(String nameRecorder) {
-        if (nameRecorder == null){
-            Log.d("call", "Null");
-        }else{
-            Log.d("call", nameRecorder);
-            nameRecord = nameRecorder;
-        }
     }
 }
